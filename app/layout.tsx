@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Remote",
-  description: "Teste de protocolo de rede.",
+  description: "Teste de protocolo de rede",
   authors: [{ name: "Maicon Jacobsen Silveira" }],
   keywords: [
     "next",

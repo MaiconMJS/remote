@@ -1,3 +1,5 @@
-export default function Home() {
-  return <h1>Remote</h1>;
+import HomeComponent from "@/components/homeComponent";
+
+export default function HomePage() {
+  return <HomeComponent />;
 }
