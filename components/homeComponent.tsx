@@ -1,25 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const HomePageComponent = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const squareSize = 50; // Tamanho do quadrado
 
-  const moveSquare = (direction: string) => {
-    setPosition((prev) => {
-      switch (direction) {
-        case "up":
-          return { ...prev, y: prev.y - 20 };
-        case "down":
-          return { ...prev, y: prev.y + 20 };
-        case "left":
-          return { ...prev, x: prev.x - 20 };
-        case "right":
-          return { ...prev, x: prev.x + 20 };
-        default:
-          return prev;
-      }
-    });
+  const startMoving = (direction: string) => {
+    if (intervalRef.current) return; // Evita múltiplos intervalos
+
+    intervalRef.current = setInterval(() => {
+      setPosition((prev) => {
+        // Obtendo os limites da tela
+        const maxX = window.innerWidth / 2 - squareSize; // Metade da largura menos o tamanho do quadrado
+        const maxY = window.innerHeight / 2 - squareSize; // Metade da altura menos o tamanho do quadrado
+
+        let newX = prev.x;
+        let newY = prev.y;
+
+        switch (direction) {
+          case "up":
+            newY = Math.max(prev.y - 30, -maxY + 150);
+            break;
+          case "down":
+            newY = Math.min(prev.y + 30, maxY + 55);
+            break;
+          case "left":
+            newX = Math.max(prev.x - 30, -maxX + 50);
+            break;
+          case "right":
+            newX = Math.min(prev.x + 30, maxX - 50);
+            break;
+        }
+
+        return { x: newX, y: newY };
+      });
+    }, 50);
+  };
+
+  const stopMoving = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   };
 
   return (
@@ -31,27 +55,35 @@ const HomePageComponent = () => {
       <div className="flex flex-col items-center gap-4">
         <button
           className="px-4 py-4 bg-gray-800 text-white rounded shadow"
-          onClick={() => moveSquare("up")}
+          onMouseDown={() => startMoving("up")}
+          onMouseUp={stopMoving}
+          onMouseLeave={stopMoving}
         >
           UP
         </button>
         <div className="flex gap-2">
           <button
             className="px-4 py-4 bg-gray-800 text-white rounded shadow"
-            onClick={() => moveSquare("left")}
+            onMouseDown={() => startMoving("left")}
+            onMouseUp={stopMoving}
+            onMouseLeave={stopMoving}
           >
             LEFT
           </button>
           <button
             className="px-4 py-4 bg-gray-800 text-white rounded shadow"
-            onClick={() => moveSquare("right")}
+            onMouseDown={() => startMoving("right")}
+            onMouseUp={stopMoving}
+            onMouseLeave={stopMoving}
           >
             RIGHT
           </button>
         </div>
         <button
           className="px-4 py-4 bg-gray-800 text-white rounded shadow"
-          onClick={() => moveSquare("down")}
+          onMouseDown={() => startMoving("down")}
+          onMouseUp={stopMoving}
+          onMouseLeave={stopMoving}
         >
           DOWN
         </button>
