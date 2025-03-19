@@ -1,50 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import useMoveSquare from "@/util/useMoveSquare";
 
 const HomePageComponent = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const squareSize = 50; // Tamanho do quadrado
-
-  const startMoving = (direction: string) => {
-    if (intervalRef.current) return; // Evita múltiplos intervalos
-
-    intervalRef.current = setInterval(() => {
-      setPosition((prev) => {
-        // Obtendo os limites da tela
-        const maxX = window.innerWidth / 2 - squareSize; // Metade da largura menos o tamanho do quadrado
-        const maxY = window.innerHeight / 2 - squareSize; // Metade da altura menos o tamanho do quadrado
-
-        let newX = prev.x;
-        let newY = prev.y;
-
-        switch (direction) {
-          case "up":
-            newY = Math.max(prev.y - 30, -maxY + 150);
-            break;
-          case "down":
-            newY = Math.min(prev.y + 30, maxY + 55);
-            break;
-          case "left":
-            newX = Math.max(prev.x - 30, -maxX + 50);
-            break;
-          case "right":
-            newX = Math.min(prev.x + 30, maxX - 50);
-            break;
-        }
-
-        return { x: newX, y: newY };
-      });
-    }, 50);
-  };
-
-  const stopMoving = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
+  const { position, startMoving, stopMoving } = useMoveSquare();
 
   return (
     <main className="flex flex-col items-center justify-center h-screen bg-white gap-4">
