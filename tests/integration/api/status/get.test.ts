@@ -1,6 +1,6 @@
-import apiBaseUrl from "@/util/apiBaseUrlAxios";
+import axiosUrlBase from "@/util/axiosUrlBase";
 
 test("GET /api/status", async () => {
-  const response = await apiBaseUrl.get("/api/status");
+  const response = await axiosUrlBase.get("/api/status");
   expect(response.status).toBe(200);
 });

@@ -1,5 +1,5 @@
-import HomeComponent from "@/components/homeComponent";
+import Square from "@/components/Square";
 
 export default function HomePage() {
-  return <HomeComponent />;
+  return <Square />;
 }
