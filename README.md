@@ -2,7 +2,11 @@
 
 Aplicação web que exibe um quadrado na tela que pode ser controlado remotamente via um app Android usando protocolo UDP.
 
-![Demonstração](https://site-teste.com/)
+### Tela do quadrado da WEB
+
+## Clique na imagem abaixo para testar a versão online
+
+[![Demonstração Web](square.png)](https://site-teste.com)
 
 ## ⚠️ Status Atual
 
@@ -24,10 +28,13 @@ Siga estes passos para configurar o projeto no seu computador:
 ```bash
 git clone https://github.com/MaiconMJS/remote-controle.git
 cd remote-control
+npm install
+npm run dev
+```
 
 ## ✨ Funcionalidades
 
-- Controle em tempo real do movimento do quadrado (up, down, left, right)
+- Controle em tempo real do movimento do quadrado (up, down, left, right, stop)
 - Comunicação via WebSocket para atualizações instantâneas
 - Servidor UDP para conexão com app Android
 - Design responsivo com Tailwind CSS
@@ -41,4 +48,3 @@ cd remote-control
 - **Redes**: WebSocket, UDP
 - **Testes**: Jest, Axios
 - **Gerenciamento de Estado**: React Hooks
-```
